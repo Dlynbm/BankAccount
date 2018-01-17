@@ -4,17 +4,25 @@ import {RetirementAccount} from "./RetirementAccount";
 import {AccountType} from "../Enums/AccountType";
 
 export class Person {
-    checking = new CheckingAccount(this.name, this.dateOfBirth, this.checkingBalance, AccountType.checking);
+    name: string;
+    dateOfBirth: Date;
+    checkingBalance: number;
+    savingsBalance: number;
+    retirementBalance: number;
 
-    savings = new SavingsAccount(this.name, this.dateOfBirth, this.savingsBalance, AccountType.savings);
+    constructor(){
+        this.name = name;
+        this.dateOfBirth = new Date(1994, 5 , 2);
+        this.checkingBalance = 1000;
+        this.savingsBalance = 10000;
+        this.retirementBalance = 100000;
 
-    retirement = new RetirementAccount(this.name, this.dateOfBirth, this.retirementBalance, AccountType.retirement);
-
-    constructor(name: string,
-                dateOfBirth: Date,
-                checkingBalance: number,
-                savingsBalance: number,
-                retirementBalance: number) {
     }
-}
 
+    checking = new CheckingAccount();
+
+    savings = new SavingsAccount();
+
+    retirement = new RetirementAccount();
+
+}
