@@ -5,7 +5,7 @@ import {Transaction} from "./Transaction";
 
 export interface Account {
     accountHolderName: string;
-    accountHolderBirthDate: Date;
+    accountBirthDate: Date;
     balance: number;
     accountHistory: Transaction[];
     accountType: AccountType;
@@ -15,7 +15,6 @@ export interface Account {
     depositMoney(amount: number,
                  description: string):
                  Transaction;
-    advanceDate(numberOfDays: number);
 
 
 

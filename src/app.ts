@@ -12,7 +12,7 @@ let retirement = new RetirementAccount();
 
 //savings account tests
 
-console.log (savings.withdrawMoney(amount: 14000, description: "Mexico", transactionOrigin 2));
+console.log (savings.withdrawMoney(10000, "Mexico", 2));
 
 console.log (savings.success);
 console.log (checking.success);

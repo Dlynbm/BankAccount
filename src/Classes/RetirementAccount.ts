@@ -1,10 +1,10 @@
-import {AccountType} from './AccountType';
-import {Transaction} from './Transaction';
-import {Account} from './Account';
-import {TransactionOrigin} from './TransactionOrigin';
-import {displayClassName, displayClassNameWithPurpose} from './Decorators';
+import {AccountType} from '../Enums/AccountType';
+import {Transaction} from '../Transaction';
+import {Account} from '../Account';
+import {TransactionOrigin} from '../Enums/TransactionOrigin';
+import {displayClassName, displayClassNameWithPurpose} from '../Decorators';
 
-export class RetirementAccount implements Account {
+export class RetirementAccount implements Account,
     Transaction {
     constructor() {
         this.dateOpened = new Date();
@@ -19,7 +19,7 @@ export class RetirementAccount implements Account {
     resultBalance: number;
     amount: number;
     description: string;
-    tranactionDate: Date;
+    transactionDate: Date;
     errorMessage: string;
     dateOpened: Date;
     monthlyTransaction: number = 6;
@@ -38,7 +38,7 @@ export class RetirementAccount implements Account {
                     this.success = false;
                     this.errorMessage = "message";
                     this.resultBalance = this.balance;
-                    this.tranactionDate = new Date();
+                    this.transactionDate = new Date();
                     this.description = description;
                 }
                 else {
@@ -47,7 +47,7 @@ export class RetirementAccount implements Account {
                         this.success = true;
                         this.errorMessage = "";
                         this.resultBalance = this.balance -= amount;
-                        this.tranactionDate = new Date();
+                        this.transactionDate = new Date();
                         this.description = description;
                         this.monthlyTransaction--;
                     }
@@ -55,14 +55,14 @@ export class RetirementAccount implements Account {
                         this.success = true;
                         this.errorMessage = "";
                         this.resultBalance = this.balance -= amount;
-                        this.tranactionDate = new Date();
+                        this.transactionDate = new Date();
                         this.description = description;
                         this.monthlyTransaction--;
                     }
                 }
             }
             else {
-                this.errorMessage = "number of transaction exceeded federal limits";
+                this.errorMessage = "Sorry, the number of transactions exceed the federal limits";
 
             }
         }
@@ -70,16 +70,16 @@ export class RetirementAccount implements Account {
             this.amount = amount;
             if (amount > currentBalance) {
                 this.success = false;
-                this.errorMessage = "cannot withdrawl more than the available balance.";
+                this.errorMessage = "Transaction declined, cannot withdraw more than the available balance.";
                 this.resultBalance = this.balance;
-                this.tranactionDate = new Date();
+                this.transactionDate = new Date();
 
             }
             else {
                 this.success = true;
                 this.errorMessage = "";
                 this.resultBalance = this.balance -= amount;
-                this.tranactionDate = new Date();
+                this.transactionDate = new Date();
                 this.description = description;
             }
         }
@@ -93,7 +93,7 @@ export class RetirementAccount implements Account {
         this.success = true;
         this.description = description;
         this.errorMessage = "";
-        this.tranactionDate = new Date();
+        this.transactionDate = new Date();
 
         return;
 

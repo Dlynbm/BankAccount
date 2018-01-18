@@ -7,19 +7,19 @@ import {displayClassName, displayClassNameWithPurpose} from "../Decorators";
 
 @displayClassName
 export class SavingsAccount implements Account {
-    constructor(){
+    constructor() {
         this.dateOpened = new Date();
     }
 
     dateOpened: Date;
-    errorMessage:string;
+    errorMessage: string;
     transactionDate: Date;
     description: string;
     amount: number;
     success: boolean;
     resultBalance: number;
     accountHolderName: string;
-    accountHolderBirthDate: Date;
+    accountBirthDate: Date;
     balance: number = 10000;
     accountType: AccountType;
     accountHistory: Transaction[];
@@ -33,14 +33,14 @@ export class SavingsAccount implements Account {
         this.accountType = 2;
         this.amount = amount;
 
-        if (transactionOrigin == TransactionOrigin.branch || TransactionOrigin.phone ||     TransactionOrigin.web) {
+        if (transactionOrigin == TransactionOrigin.branch || TransactionOrigin.phone || TransactionOrigin.web) {
             this.amount = amount;
             if (this.monthlyTransactions >= 1) {
 
 
                 if (amount > currentBalance) {
                     this.success = false;
-                    this.errorMessage = "Cannot withdrawl more than the available balance.";
+                    this.errorMessage = "Transaction declined, cannot withdraw more than the available balance.";
                     this.resultBalance = this.balance;
                     this.transactionDate = new Date();
                     this.description = description;
@@ -62,7 +62,7 @@ export class SavingsAccount implements Account {
             this.amount = amount;
             if (amount > currentBalance) {
                 this.success = false;
-                this.errorMessage = "Can't withdrawl more than the available balance";
+                this.errorMessage = "Transaction declined, can't withdraw more than the available balance";
                 this.resultBalance = this.balance;
                 this.transactionDate = new Date();
                 this.description = description;
@@ -77,19 +77,18 @@ export class SavingsAccount implements Account {
             }
         }
 
-            return;
-        }
+        return;
     }
-    depositMoney(amount: number, description: string):
 
-        Transaction {
+    depositMoney(amount: number, description: string): Transaction {
         this.balance += amount;
-        this.resultBalance =this.balance;
+        this.resultBalance = this.balance;
         this.success = true;
         this.description = description;
-        this.errorMessage="";
+        this.errorMessage = "";
         this.transactionDate = new Date();
 
         return;
     }
 }
+

@@ -22,7 +22,7 @@ export class CheckingAccount implements Account, Transaction {
     success: boolean;
     resultBalance: number;
     accountHolderName: string;
-    accountHolderBirthDate: Date;
+    accountBirthDate: Date;
     balance: number = 1000;
     accountType: AccountType;
     accountHistory: Transaction[];
@@ -38,7 +38,7 @@ export class CheckingAccount implements Account, Transaction {
 
             if (amount > currentBalance) {
                 this.success = false;
-                this.errorMessage = "Cannot withdrawl more than the available balance.";
+                this.errorMessage = "Transaction declined, cannot withdraw more than the available balance.";
                 this.resultBalance = this.balance;
                 this.transactionDate = new Date();
                 this.description = description;
