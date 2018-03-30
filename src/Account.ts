@@ -4,21 +4,22 @@ import {Transaction} from "./Transaction";
 
 
 export interface Account {
+    currentDate: Date;
+    dateOpened: Date;
     accountHolderName: string;
-    accountBirthDate: Date;
+    accountHolderBirthDate: Date;
     balance: number;
-    accountHistory: Transaction[];
-    accountType: AccountType;
     withdrawMoney(amount: number,
                   description: string,
-                  transactionOrigin: TransactionOrigin): Transaction;
+                  transactionOrigin: TransactionOrigin) : Transaction;
     depositMoney(amount: number,
-                 description: string):
-                 Transaction;
-
-
-
+    description: string) : Transaction;
+    accountHistory : Transaction[];
+    advanceDate(numberOfDays: number);
+    accountType: AccountType;
 }
+
+
 
 
 

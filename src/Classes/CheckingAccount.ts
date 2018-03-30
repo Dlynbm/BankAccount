@@ -3,26 +3,27 @@ import {Transaction} from "../Transaction";
 import {Account} from '../Account';
 import {TransactionOrigin} from "../Enums/TransactionOrigin";
 import {displayClassName, displayClassNameWithPurpose} from "../Decorators";
-
+import * as moment from 'moment';
 @displayClassName
 
 
 
 export class CheckingAccount implements Account, Transaction {
 
-    constructor(){
-        this.dateOpened = new Date();
+    constructor() {
+        this.dateOpened = moment('2000-01-01');
     }
 
-    dateOpened: Date;
-    errorMessage:string;
+    currentDate: any;
+    dateOpened: any;
+    errorMessage: string;
     transactionDate: Date;
     description: string;
     amount: number;
     success: boolean;
     resultBalance: number;
     accountHolderName: string;
-    accountBirthDate: Date;
+    accountHolderBirthDate: Date;
     balance: number = 1000;
     accountType: AccountType;
     accountHistory: Transaction[];
@@ -54,16 +55,50 @@ export class CheckingAccount implements Account, Transaction {
             return;
         }
     }
-        depositMoney(amount: number, description: string): Transaction {
-            this.balance += amount;
-            this.resultBalance =this.balance;
-            this.success = true;
-            this.description = description;
-            this.errorMessage="";
-            this.transactionDate = new Date();
 
-            return;
-        }
+    depositMoney(amount: number, description: string): Transaction {
+        this.balance += amount;
+        this.resultBalance = this.balance;
+        this.success = true;
+        this.description = description;
+        this.errorMessage = "";
+        this.transactionDate = new Date();
+
+        return;
     }
+
+    advanceDate(numberOfDays: number) {
+        let countingDate = this.dateOpened;
+        let i = 0;
+        while (i < numberOfDays) {
+            countingDate.add(1, 'days');
+            i++;
+            if (countingDate.date() === 1) {
+                let interest = (this.balance * 0.01) / 12;
+                this.balance += interest;
+
+            }
+        }
+        return this.balance;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// loop as many numberOfDays
+// add 1 day to dateOpened (use moment.js) : moment.add(1, 'day')
+// if is this.dateOpened day of month == 1 : moment.date()
+// calculate interest and assign to this.balance
 
 

@@ -3,15 +3,18 @@ import {Transaction} from "../Transaction";
 import {Account} from '../Account';
 import {TransactionOrigin} from "../Enums/TransactionOrigin";
 import {displayClassName, displayClassNameWithPurpose} from "../Decorators";
+import * as moment from 'moment';
 
 
 @displayClassName
 export class SavingsAccount implements Account {
+
     constructor() {
-        this.dateOpened = new Date();
+        this.dateOpened = moment('2000-01-01');
     }
 
-    dateOpened: Date;
+    currentDate: any;
+    dateOpened: any;
     errorMessage: string;
     transactionDate: Date;
     description: string;
@@ -19,7 +22,7 @@ export class SavingsAccount implements Account {
     success: boolean;
     resultBalance: number;
     accountHolderName: string;
-    accountBirthDate: Date;
+    accountHolderBirthDate: Date;
     balance: number = 10000;
     accountType: AccountType;
     accountHistory: Transaction[];
@@ -90,5 +93,21 @@ export class SavingsAccount implements Account {
 
         return;
     }
+
+    advanceDate(numberOfDays: number) {
+        let countingDate = this.dateOpened;
+        let i = 0;
+        while (i < numberOfDays) {
+            countingDate.add(1, 'days');
+            i++;
+            if (countingDate.date() === 1) {
+                let interest = (this.balance * 0.02) / 12;
+                this.balance += interest;
+
+            }
+        }
+        return this.balance;
+    }
 }
+
 

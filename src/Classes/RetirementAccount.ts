@@ -3,15 +3,17 @@ import {Transaction} from '../Transaction';
 import {Account} from '../Account';
 import {TransactionOrigin} from '../Enums/TransactionOrigin';
 import {displayClassName, displayClassNameWithPurpose} from '../Decorators';
+import * as moment from 'moment';
 
-export class RetirementAccount implements Account,
-    Transaction {
+export class RetirementAccount implements Account, Transaction {
+
     constructor() {
-        this.dateOpened = new Date();
+        this.dateOpened = moment('2000-01-01');
     }
 
+    currentDate:any;
     accountHolderName: string;
-    accountBirthDate: Date;
+    accountHolderBirthDate: Date;
     balance: number = 100000;
     accountType: AccountType;
     accountHistory: Transaction[];
@@ -21,14 +23,14 @@ export class RetirementAccount implements Account,
     description: string;
     transactionDate: Date;
     errorMessage: string;
-    dateOpened: Date;
+    dateOpened: any;
     monthlyTransaction: number = 6;
     userAge: number = 64;
     earlyWithdrawl: number = (this.balance * .1);
 
     withdrawMoney(amount: number, description: string, transactionOrigin: TransactionOrigin): Transaction {
 
-        var currentBalance = this.balance;
+        let currentBalance = this.balance;
         this.accountType = 3;
         this.amount = amount;
 
@@ -98,5 +100,19 @@ export class RetirementAccount implements Account,
         return;
 
     }
+    advanceDate(numberOfDays: number) {
+        let countingDate = this.dateOpened;
+        let i = 0;
+        while (i < numberOfDays) {
+            countingDate.add(1, 'days');
+            i++;
+            if (countingDate.date() === 1) {
+                let interest = (this.balance * 0.03) / 12;
+                this.balance += interest;
 
+            }
+        }
+        return this.balance;
+    }
 }
+
